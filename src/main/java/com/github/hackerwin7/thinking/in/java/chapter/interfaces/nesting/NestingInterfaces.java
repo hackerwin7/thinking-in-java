@@ -40,11 +40,14 @@ public class NestingInterfaces {
         A a = new A();
 //   !     A.D ad = a.getD(); // private interface D, can not access
 //   !     A.DImp2 di2 = a.getD(); // implements private interface can only be used itself
+        A.DImp2 d2 = (A.DImp2) a.getD();
+        d2.f();
 //   !     a.getD().f(); // private interface D
         A a2 = new A();
         a2.receiveD(a.getD());
 
         a.getF().f();
+        a.run();
     }
 }
 
@@ -78,11 +81,11 @@ class A {
     }
 
     private class DImp implements D {
-        public void f() {}
+        public void f() { System.out.println("d1"); }
     }
 
     public class DImp2 implements D {
-        public void f() {}
+        public void f() { System.out.println("d2"); }
     }
 
     public D getD() { return new DImp2(); }
@@ -113,6 +116,13 @@ class A {
     public void receiveF(F f) {
         fRef = f;
         f.f();
+    }
+
+    public void run() {
+        D d1 = new DImp();
+        D d2 = new DImp2();
+        d1.f();
+        d2.f();
     }
 }
 
