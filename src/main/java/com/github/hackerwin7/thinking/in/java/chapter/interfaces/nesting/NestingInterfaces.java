@@ -19,7 +19,7 @@ public class NestingInterfaces {
 
 //    class DImp implements A.D {
 //        public void f() {}
-//    }
+//    } // private access of interface D
 
     class EImp implements E {
         public void g() {}
@@ -44,7 +44,7 @@ public class NestingInterfaces {
         d2.f();
 //   !     a.getD().f(); // private interface D
         A a2 = new A();
-        a2.receiveD(a.getD());
+        a2.receiveD(a.getD()); // receiveD has the permission to use the getD() private return value (getD() is public, the return value type D is private)
 
         a.getF().f();
         a.run();
@@ -134,6 +134,10 @@ interface E {
     public interface H {
         void f();
     }
+
+//    private interface S {
+//
+//    } // ! all elements of interface must be public
 
     void g();
 }
